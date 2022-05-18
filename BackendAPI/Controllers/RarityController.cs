@@ -13,7 +13,7 @@ namespace BackendAPI.Controllers
         public RarityController(RarityService rarityService) =>
         _rarityService = rarityService;
 
-        [HttpGet("{rarities}")]
+        [HttpGet]
         public async Task<List<Rarity>> Get() =>
             await _rarityService.GetAsync();
 

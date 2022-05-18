@@ -13,11 +13,11 @@ namespace BackendAPI.Controllers
         public CardController(CardService cardService) =>
         _cardService = cardService;
 
-        [HttpGet("{cards} {pagenumber}")]
-        public async Task<List<Card>> Get() =>
-            await _cardService.GetAsync();
+        [HttpGet("{pagenumber}")]
+        public async Task<List<Card>> Get(int pagenumber) =>
+            await _cardService.GetAsync(pagenumber);
 
-        [HttpGet("{cards}, {pagenumber}, {artist}")]
+        [HttpGet("{pagenumber}, {artist}")]
         public async Task<IList<Card>> Get(int pagenumber, string artist)
         {
             var _artist = await _cardService.GetAsync(pagenumber, null, null, artist, null);
@@ -30,7 +30,7 @@ namespace BackendAPI.Controllers
             return _artist;
         }
 
-        [HttpGet("{cards}, {pagenumber}, {setid}")]
+        [HttpGet("{pagenumber}, {setid}, {dummy}")]
         public async Task<IList<Card>> Get(int pagenumber, int setid)
         {
             var _cards = await _cardService.GetAsync(pagenumber, null, null, null, setid);
@@ -43,7 +43,7 @@ namespace BackendAPI.Controllers
             return _cards;
         }
 
-        [HttpGet("{cards},{pagenumber}, {classid} , {dummy}")]
+        [HttpGet("{pagenumber}, {classid} , {dummy}, {dummy}")]
         public async Task<IList<Card>> Get(int pagenumber, int classId, int dummy)
         {
             var _cards = await _cardService.GetAsync(pagenumber, null, classId, null, null);
@@ -57,7 +57,7 @@ namespace BackendAPI.Controllers
         }
 
 
-        [HttpGet("{cards}, {pagenumber}, {rarityId} , {dummy}")]
+        [HttpGet("{pagenumber}, {rarityId} , {dummy}, {dummy},{dummy}")]
         public async Task<IList<Card>> Get(int pagenumber, int rarityId, string dummy)
         {
             var _cards = await _cardService.GetAsync(pagenumber, rarityId, null, null, null);

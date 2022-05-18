@@ -17,8 +17,8 @@ namespace BackendAPI.Services
         }
 
         //Get all available cards 
-        public async Task<List<Card>> GetAsync() =>
-            await _collection.Find(x => true).ToListAsync();
+        public async Task<List<Card>> GetAsync(int pagenumber) =>
+            await _collection.Find(x => true).Skip(pagenumber * 50).Limit(50).ToListAsync();
 
 
         public async Task<IList<Card>> GetAsync(int pagenumber, int? rarityId = null, int? classId = null, string? artist = null, int? setId = null)
@@ -38,7 +38,7 @@ namespace BackendAPI.Services
 
             if (artist?.Length > 0)
             {
-                filter &= builder.Regex(x => x.Artist, new BsonRegularExpression($"/{artist}/i"));
+                filter &= builder.Regex(x => x.artistName, new BsonRegularExpression($"/{artist}/i"));
             }
 
             if (setId > 0)
@@ -48,5 +48,6 @@ namespace BackendAPI.Services
 
             return await _collection.Find(filter).Skip(pagenumber * 50).Limit(50).ToListAsync();
         }
+    }
 }
 

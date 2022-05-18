@@ -14,8 +14,9 @@ namespace BackendAPI.Models
 		public int? Health { get; set; }
 		public int? Attack { get; set; }
 		public int ManaCost { get; set; }
-		public String Artist { get; set; }
-		public String Text { get; set; }
-		public String FlavorText { get; set; }
+
+		public string artistName { get; set; }
+		public string Text { get; set; }
+		public string FlavorText { get; set; }
 	}
 }

@@ -13,7 +13,7 @@ namespace BackendAPI.Controllers
         public TypeController(TypeService typeService) =>
         _typeService = typeService;
 
-        [HttpGet("{types}")]
+        [HttpGet]
         public async Task<List<CardType>> Get() =>
             await _typeService.GetAsync();
 

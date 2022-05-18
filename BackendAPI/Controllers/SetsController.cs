@@ -13,7 +13,7 @@ namespace BackendAPI.Controllers
         public SetsController(SetService setService) =>
         _setService = setService;
 
-        [HttpGet("{sets}")]
+        [HttpGet]
         public async Task<List<Set>> Get() =>
             await _setService.GetAsync();
 

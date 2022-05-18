@@ -13,7 +13,7 @@ namespace BackendAPI.Controllers
         public ClassController(ClassService classService) =>
         _classService = classService;
 
-        [HttpGet("{classes}")]
+        [HttpGet]
         public async Task<List<Class>> Get() =>
             await _classService.GetAsync();
 
