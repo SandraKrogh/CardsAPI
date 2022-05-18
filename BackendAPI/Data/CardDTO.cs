@@ -1,16 +1,15 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace BackendAPI.Models
+namespace BackendAPI.Data
 {
-    public class Card
+    public class CardDTO
     {
-		public int Id { get; set; }
-		public int ClassId { get; set; }
-		public int cardTypeId { get; set; }
-		public int cardSetId { get; set; }
+		public string Class { get; set; }
+		public string Type { get; set; }
+		public string Set { get; set; }
 		public int? SpellSchoolId { get; set; }
-		public int RarityId { get; set; }
+		public string Rarity { get; set; }
 		public int? Health { get; set; }
 		public int? Attack { get; set; }
 		public int ManaCost { get; set; }

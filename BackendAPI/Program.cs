@@ -1,5 +1,6 @@
 using BackendAPI.Services;
 using Microsoft.EntityFrameworkCore;
+using BackendAPI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,7 @@ builder.Services.AddSingleton<RarityService>();
 builder.Services.AddSingleton<SetService>();
 builder.Services.AddSingleton<TypeService>();
 
+//builder.Services.AddSingleton<CardsDatabaseSettings>();
 
 var mongoService = new MongoService();
 
@@ -20,6 +22,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.Configure<CardsDatabaseSettings>(
+    builder.Configuration.GetSection("CardsDatabase"));
+
+//var cardsDatabaseSettings = new CardsDatabaseSettings();
+//var mongoService = new MongoService(cardsDatabaseSettings);
 
 builder.Services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
