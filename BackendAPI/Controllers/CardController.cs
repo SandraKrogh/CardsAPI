@@ -54,7 +54,7 @@ namespace BackendAPI.Controllers
             
             var mappedCards = _mapper.Map<IList<Card>, IList<CardDTO>>(cards);
             
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < mappedCards.Count; i++)
             {
                 var classTemp = await _classService.GetClass(cards[i].ClassId);
                 if (classTemp == null)
