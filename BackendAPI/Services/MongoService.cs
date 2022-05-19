@@ -1,6 +1,7 @@
 ﻿using BackendAPI.Models;
 using MongoDB.Driver;
 using System.Text.Json;
+using Microsoft.Extensions.Options;
 
 namespace BackendAPI.Services
 {
@@ -8,13 +9,25 @@ namespace BackendAPI.Services
     {
         private readonly MongoClient _client;
 
-        public MongoService()
+        public MongoService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings)
         {
-            
-            _client = new MongoClient("mongodb://localhost:27017/");
 
-            var db = _client.GetDatabase("CardsAPI");
-            if (_client.GetDatabase("CardsAPI").ListCollections().ToList().Count == 0)
+            _client = new MongoClient(cardsDatabaseSettings
+                                              .Value
+                                              .ConnectionString);
+            var db = _client.GetDatabase(cardsDatabaseSettings
+                                .Value
+                                .DatabaseName);
+            var mongoDatabase = new MongoClient().GetDatabase(
+                                  cardsDatabaseSettings
+                                  .Value
+                                  .DatabaseName);
+
+            //_client = new MongoClient("mongodb://localhost:27017/");
+
+            //var db = _client.GetDatabase("CardsAPI");
+            //if (_client.GetDatabase("CardsAPI").ListCollections().ToList().Count == 0)
+            if(db.ListCollections().ToList().Count == 0)
             {
                 var collectionCard = db.GetCollection<Card>("Card");
                 foreach (var path in new[] { "cards.json" })

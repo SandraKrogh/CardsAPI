@@ -12,9 +12,8 @@ builder.Services.AddSingleton<RarityService>();
 builder.Services.AddSingleton<SetService>();
 builder.Services.AddSingleton<TypeService>();
 
-//builder.Services.AddSingleton<CardsDatabaseSettings>();
 
-var mongoService = new MongoService();
+//var mongoService = new MongoService();
 
 // Add services to the container.
 

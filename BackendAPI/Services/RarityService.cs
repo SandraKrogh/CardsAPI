@@ -11,11 +11,21 @@ namespace BackendAPI.Services
         private readonly IMongoCollection<Rarity> _collection;
 
 
-        public RarityService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings)
+        public RarityService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings, MongoService service)
         {
             //_collection = service.Client.GetDatabase("CardsAPI").GetCollection<Rarity>("Rarity");
             //_logger = logger;
 
+            var mongoDatabase = service.Client.GetDatabase(cardsDatabaseSettings
+                .Value
+                .DatabaseName);
+
+            _collection = mongoDatabase.GetCollection<Rarity>(
+                                             cardsDatabaseSettings
+                                             .Value
+                                             .CollectionName[3]);
+
+            /*
             var mongoClient = new MongoClient(
                                               cardsDatabaseSettings
                                               .Value
@@ -28,7 +38,7 @@ namespace BackendAPI.Services
                                              cardsDatabaseSettings
                                              .Value
                                              .CollectionName[3]);
-
+            */
         }
 
         public async Task<List<Rarity>> GetAsync() =>

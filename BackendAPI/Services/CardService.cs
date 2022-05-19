@@ -9,11 +9,21 @@ namespace BackendAPI.Services
     {
         private readonly IMongoCollection<Card> _collection;
 
-        public CardService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings)
+        public CardService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings, MongoService service)
         {
             //_collection = service.Client.GetDatabase("CardsAPI").GetCollection<Card>("Card");
             //_logger = logger;
 
+            var mongoDatabase = service.Client.GetDatabase(cardsDatabaseSettings
+                .Value
+                .DatabaseName);
+
+            _collection = mongoDatabase.GetCollection<Card>(
+                                             cardsDatabaseSettings
+                                             .Value
+                                             .CollectionName[0]);
+
+            /*
             var mongoClient = new MongoClient(
                                               cardsDatabaseSettings
                                               .Value
@@ -26,7 +36,7 @@ namespace BackendAPI.Services
                                              cardsDatabaseSettings
                                              .Value
                                              .CollectionName[0]);
-
+            */
         }
 
 

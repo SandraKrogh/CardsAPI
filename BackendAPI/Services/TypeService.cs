@@ -10,11 +10,21 @@ namespace BackendAPI.Services
         //private readonly ILogger<TypeService> _logger;
         private readonly IMongoCollection<CardType> _collection;
 
-        public TypeService(MongoService service, IOptions<CardsDatabaseSettings> cardsDatabaseSettings)
+        public TypeService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings, MongoService service)
         {
             //_collection = service.Client.GetDatabase("CardsAPI").GetCollection<CardType>("CardType");
             //_logger = logger;
 
+            var mongoDatabase = service.Client.GetDatabase(cardsDatabaseSettings
+                .Value
+                .DatabaseName);
+
+            _collection = mongoDatabase.GetCollection<CardType>(
+                                             cardsDatabaseSettings
+                                             .Value
+                                             .CollectionName[1]);
+
+            /*
             var mongoClient = new MongoClient(
                                               cardsDatabaseSettings
                                               .Value
@@ -27,7 +37,7 @@ namespace BackendAPI.Services
                                              cardsDatabaseSettings
                                              .Value
                                              .CollectionName[1]);
-
+            */
         }
 
         public async Task<List<CardType>> GetAsync() =>
