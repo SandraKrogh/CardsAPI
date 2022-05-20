@@ -7,13 +7,10 @@ namespace BackendAPI.Services
 {
     public class ClassService
     {
-        //private readonly ILogger<ClassService> _logger;
         private readonly IMongoCollection<Class> _collection;
 
         public ClassService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings, MongoService service)
         {
-            //_collection = service.Client.GetDatabase("CardsAPI").GetCollection<Class>("Class");
-            //_logger = logger;
             var mongoDatabase = service.Client.GetDatabase(cardsDatabaseSettings
                 .Value
                 .DatabaseName);
@@ -22,20 +19,6 @@ namespace BackendAPI.Services
                                              cardsDatabaseSettings
                                              .Value
                                              .CollectionName[2]);
-            /*
-            var mongoClient = new MongoClient(
-                                              cardsDatabaseSettings
-                                              .Value
-                                              .ConnectionString);
-            var mongoDatabase = new MongoClient().GetDatabase(
-                                                  cardsDatabaseSettings
-                                                  .Value
-                                                  .DatabaseName);
-            _collection = mongoDatabase.GetCollection<Class>(
-                                             cardsDatabaseSettings
-                                             .Value
-                                             .CollectionName[2]);
-            */
         }
 
         public async Task<List<Class>> GetAsync() =>

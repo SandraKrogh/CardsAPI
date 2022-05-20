@@ -44,19 +44,5 @@ namespace BackendAPI.Controllers
 
     }
 }
-/*
-[HttpGet("/Cards")]
-public async Task<IList<CardDTO>> Get(int pagenumber, int? rarityId = null, int? classId = null, string? artist = null, int? setId = null)
-{
-    _logger.LogInformation("Requested GET at endpoint /cards");
 
-    var _cards = await _cardService.GetAsync(pagenumber, rarityId, classId, artist, setId);
-
-    if (_cards == null || _cards.Count == 0)
-    {
-        var notFoundList = new List<CardDTO>();
-        return notFoundList;
-    }
-
-    var mappedCards = _mapper.Map<IList<Card>, IList<CardDTO>>(_cards);
-            */
+          

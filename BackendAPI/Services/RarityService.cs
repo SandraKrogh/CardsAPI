@@ -7,14 +7,11 @@ namespace BackendAPI.Services
 {
     public class RarityService
     {
-        //private readonly ILogger<RarityService> _logger;
         private readonly IMongoCollection<Rarity> _collection;
 
 
         public RarityService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings, MongoService service)
         {
-            //_collection = service.Client.GetDatabase("CardsAPI").GetCollection<Rarity>("Rarity");
-            //_logger = logger;
 
             var mongoDatabase = service.Client.GetDatabase(cardsDatabaseSettings
                 .Value
@@ -25,20 +22,6 @@ namespace BackendAPI.Services
                                              .Value
                                              .CollectionName[3]);
 
-            /*
-            var mongoClient = new MongoClient(
-                                              cardsDatabaseSettings
-                                              .Value
-                                              .ConnectionString);
-            var mongoDatabase = new MongoClient().GetDatabase(
-                                                  cardsDatabaseSettings
-                                                  .Value
-                                                  .DatabaseName);
-            _collection = mongoDatabase.GetCollection<Rarity>(
-                                             cardsDatabaseSettings
-                                             .Value
-                                             .CollectionName[3]);
-            */
         }
 
         public async Task<List<Rarity>> GetAsync() =>

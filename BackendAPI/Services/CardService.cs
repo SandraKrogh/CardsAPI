@@ -11,8 +11,7 @@ namespace BackendAPI.Services
 
         public CardService(IOptions<CardsDatabaseSettings> cardsDatabaseSettings, MongoService service)
         {
-            //_collection = service.Client.GetDatabase("CardsAPI").GetCollection<Card>("Card");
-            //_logger = logger;
+          
 
             var mongoDatabase = service.Client.GetDatabase(cardsDatabaseSettings
                 .Value
@@ -22,27 +21,11 @@ namespace BackendAPI.Services
                                              cardsDatabaseSettings
                                              .Value
                                              .CollectionName[0]);
-
-            /*
-            var mongoClient = new MongoClient(
-                                              cardsDatabaseSettings
-                                              .Value
-                                              .ConnectionString);
-            var mongoDatabase = new MongoClient().GetDatabase(
-                                                  cardsDatabaseSettings
-                                                  .Value
-                                                  .DatabaseName);
-            _collection = mongoDatabase.GetCollection<Card>(
-                                             cardsDatabaseSettings
-                                             .Value
-                                             .CollectionName[0]);
-            */
         }
 
 
         public async Task<IList<Card>> GetAsync(int pagenumber, int? rarityId = null, int? classId = null, string? artist = null, int? setId = null)
         {
-            //_logger.LogInformation("Requested GET cards");
 
             var builder = Builders<Card>.Filter;
             var filter = builder.Empty;
